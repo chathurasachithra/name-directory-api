@@ -1,0 +1,16 @@
+{
+  "DATABASE_URL": "mongodb://mongoc:27017/directory",
+  "JWT_SECRET": "G9cvy4mBQ5N2DGdi2COlst5dBBkMNrlTw1qAIiZT8+63C3pygO5FLayUAVKpw5pciNw9tz+31sJa3YF0eEJxzq2EDKnu1DDBEgZd+vUqMouUI7oMS3uPgbx78fK0U17/Avc+QFTBwuzTGdL+LEaCN/Le0SUAHiz27TsksHZjf120ZzGCkmWCct7D5AgovuTcKrMYZgdongHyE2hnxLc7fsoT4s3X6MPxEDhQF0b89+9VbXsluNYh1x9Gce9ba7Uj1dijIrTXYB0kunnjm7/+SeTIoS7zVt0Aeh+i4qbfNfkEZEPV0vYmdgujgqBQDJpHXf6dQ7Un+NZfUlU9H/jfZg==",
+  "API_URL": "http://localhost",
+  "RESPONSE": {
+    "SUCCESS_TEXT": "Success",
+    "ERROR_TEXT": "Error",
+    "CODE": {
+      "NOT_FOUND": "404",
+      "SUCCESS": "200",
+      "ERROR": "400",
+      "FORBIDDEN": "403",
+      "UNAUTHORIZED": "401"
+    }
+  }
+}

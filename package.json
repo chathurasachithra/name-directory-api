@@ -1,0 +1,59 @@
+{
+  "name": "name-directory-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "start-production": "forever ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chathurasachithra/name-directory-api.git"
+  },
+  "author": "Chathura Fernando",
+  "license": "(C) 2019 Chathura Fernando",
+  "homepage": "https://github.com/chathurasachithra/name-directory-api/wiki",
+  "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
+    "acorn": "^6.0.5",
+    "aws-sdk": "^2.383.0",
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.3",
+    "config": "^3.0.0",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-joi-validation": "^0.3.0",
+    "generate-password": "^1.4.1",
+    "html-to-text": "^5.1.1",
+    "http-errors": "~1.6.2",
+    "joi": "^14.3.0",
+    "joi-date-extensions": "^1.2.0",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.23.0",
+    "mongoose": "^5.3.16",
+    "mongoose-seed": "^0.5.1",
+    "morgan": "~1.9.0",
+    "node-cron": "^2.0.3",
+    "node-sass-middleware": "0.11.0",
+    "nodemon": "^1.18.9",
+    "pug": "^2.0.0-beta11",
+    "simple-node-logger": "^18.12.22",
+    "socket.io": "^2.2.0",
+    "stripe": "^5.10.0",
+    "twilio": "^3.28.0",
+    "uniqid": "^5.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "nodemon": "^1.18.9"
+  }
+}

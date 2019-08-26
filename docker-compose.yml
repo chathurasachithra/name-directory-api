@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mongoc:
+    container_name: mongo_db_cont
+    image: 'mongo:4.0.4-xenial'
+    ports:
+      - '27018:27017'
+
+  api:
+    container_name: api_container
+    image: 'node:10.14.0'
+    depends_on:
+      - mongoc
+    user: "node"
+    working_dir: /home/node/api
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - ./:/home/node/api
+    ports:
+      - '60:3000'
+
+  web:
+    container_name: web_container
+    image: 'node:10.14.0'
+    user: "node"
+    working_dir: /home/node/web
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - ../name-directory-web/:/home/node/web
+    ports:
+      - '61:3000'
