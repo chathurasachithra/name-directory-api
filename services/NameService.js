@@ -92,7 +92,6 @@ const NameService = {
     }
     let sortQuery = sort && sort.field && { [sort.field]: sort.order };
     sortQuery = sortQuery || { name: 1 };
-console.log(sortQuery);
     const total = await NameModel.count(searchQuery);
     let names = await NameModel.aggregate([
       { $match: searchQuery },
@@ -122,6 +121,79 @@ console.log(sortQuery);
     return { names, total };
   },
 
+  getAll: async (request) => {
+    let {
+      category, search, character,
+    } = request;
+    const searchQuery = { status: { $ne: 'removed' } };
+    let categoryName = '';
+    if (search && search !== '') {
+      search = search.trim().toLowerCase();
+      const queryString = new RegExp(search.trim()
+        .toLowerCase()
+        .replace(/([.*+?=^!:${}()|[\]\/\\])/g, '\\$1'), 'i');
+      searchQuery.name = { $regex: queryString };
+    }
+    if (category && category !== '') {
+      const categoryObj = await CategoryModel.findOne({ key: category });
+      categoryName = categoryObj;
+      const nameIdList = await NameModel.aggregate([
+        {
+          $unwind: {
+            path: '$categories',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        { $match: { categories: categoryObj._id.toString() } },
+        {
+          $group:{_id:null, array:{$push:"$_id"}}
+        },
+        {
+          $project:{ array:true, _id:false }
+        },
+      ]);
+      const nameArray = nameIdList.shift();
+      if (nameArray && nameArray.array) {
+        searchQuery._id = { $in: nameArray.array };
+      }
+    }
+    if (character && character !== '') {
+      character = character.trim().toLowerCase();
+      const characterString = new RegExp('^' + character.trim()
+        .toLowerCase()
+        .replace(/([.*+?=^!:${}()|[\]\/\\])/g, '\\$1'), 'i');
+      console.log(characterString);
+      searchQuery.name = { $regex: characterString };
+    }
+    const sortQuery = { name: 1 };
+    let names = await NameModel.aggregate([
+      { $match: searchQuery },
+      {
+        $project: {
+          _id: '$_id',
+          name: '$name',
+          meaning: '$meaning',
+          views: '$views',
+          similar_names: '$similar_names',
+          languages: '$languages',
+          gender: '$gender',
+          categories: '$categories',
+          status: '$status',
+          createdAt: '$createdAt',
+        },
+      },
+      {
+        $sort: sortQuery,
+      },
+    ]).exec();
+    let languages = await LanguageModel.find({}).sort({ name: 1 });
+    const languageArray = languages.reduce(function(map, obj) {
+      map[obj._id] = obj.name;
+      return map;
+    }, {});
+    return { names, categoryName, languages: languageArray };
+  },
+
   getById: async (nameId) => {
     const name = await NameModel.findOne({ _id: nameId })
       .exec();
@@ -133,6 +205,22 @@ console.log(sortQuery);
     const languages = await LanguageModel.find({}).sort(sort);
     const categories = await CategoryModel.find({}).sort(sort);
     return { languages, categories };
+  },
+
+  updateViews: async (name) => {
+    const currentName = await NameModel.findOne({ name });
+    if (!currentName) {
+      throw new Error('Cannot find a name for this name');
+    }
+    const nameObj = {
+      views: currentName.views + 1,
+    };
+    const nameResponse = await NameModel.findOneAndUpdate(
+      { _id: currentName._id },
+      { $set: nameObj },
+      { new: true },
+    );
+    return nameResponse;
   },
 
 };

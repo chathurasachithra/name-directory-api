@@ -23,6 +23,9 @@ router.put('/directory-name/:id', Authorization, NameController.update);
 router.get('/directory-name/:id', Authorization, NameController.getById);
 router.delete('/directory-name/:id', Authorization, NameController.remove);
 
+router.post('/directory-name/get-all', NameController.getAll);
+router.get('/directory-name/increase-view/:name', NameController.updateViews);
+
 router.get('/static', Authorization, NameController.getStaticData);
 
 module.exports = router;

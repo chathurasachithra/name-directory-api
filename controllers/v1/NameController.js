@@ -21,6 +21,23 @@ const NameController = {
   },
 
   /**
+   * List all names by filtering
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<void>}
+   */
+  getAll: async (req, res) => {
+    try {
+      const request = req.body;
+      const result = await NameService.getAll(request);
+      ResponseService.success(res, result);
+    } catch (err) {
+      ResponseService.error(res, err.message);
+    }
+  },
+
+  /**
    * Create new name
    * @param request
    * @param response
@@ -50,6 +67,24 @@ const NameController = {
       ResponseService.error(response, error);
     }
   },
+
+  /**
+   * Increase view count
+   * @param request
+   * @param response
+   * @returns {Promise<void>}
+   */
+  updateViews: async (request, response) => {
+    try {
+      const name = request.params.name || null;
+      const result = await NameService.updateViews(name);
+      ResponseService.success(response, result);
+    } catch (error) {
+      ResponseService.error(response, error);
+    }
+  },
+
+
 
   /**
    * Remove name by id

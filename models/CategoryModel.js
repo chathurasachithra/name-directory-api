@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const categorySchema = new Schema({
   name: String,
+  key: String,
   status: {
     type: String,
     enum: ['active', 'inactive'],

@@ -8,26 +8,32 @@ const data = [
     documents: [
       {
         name : "Muslim Boys Names",
+        key : "muslim-boys-names",
         status : "active"
       },
       {
         name : "Muslim Girls Names",
+        key : "muslim-girls-names",
         status : "active"
       },
       {
         name : "Names of Prophet Mohammad saw",
+        key : "names-of-prophet-mohammad-saw",
         status : "active"
       },
       {
         name : "Female Sahabi Names",
+        key : "female-sahabi-names",
         status : "active"
       },
       {
         name : "Male Sahabi Names",
+        key : "male-sahabi-names",
         status : "active"
       },
       {
         name : "Prophets of Islam",
+        key : "prophets-of-islam",
         status : "active"
       }
     ],
