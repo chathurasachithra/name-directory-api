@@ -23,6 +23,17 @@ seeder.connect(config.DATABASE_URL, () => {
             passwordResetRequestTime: null,
             passwordResetToken: null,
           },
+          {
+            status: 'active',
+            avatar: '',
+            type: 'super_admin',
+            firstName: 'Amith',
+            lastName: 'Ranasinghe',
+            email: 'amith-ranasinghe@gmail.com',
+            password: await bcrypt.hash('amithadmin123', 2),
+            passwordResetRequestTime: null,
+            passwordResetToken: null,
+          },
         ],
       },
     ];
